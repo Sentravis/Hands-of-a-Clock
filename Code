@@ -1,0 +1,83 @@
+using System;
+
+namespace HandsOfAClock
+{
+    class Program
+    {
+        static void Main()
+        {
+            //ask the user to enter a time, hours and minutes separate
+            Console.WriteLine("\nPlease enter a time, first the hour then the minutes:");
+
+            
+            Console.Write("Hour: ");
+            string hour = Console.ReadLine();
+            Console.WriteLine("");
+            Console.Write("Minute: ");
+            string minute = Console.ReadLine();
+            Console.WriteLine("");
+
+            TimeHands(hour, minute);
+        }
+
+         
+        static void TimeHands(string hour, string minute)
+        {
+            //convert the Console.Readline entry from type string to type int
+            int hournum = Convert.ToInt32(hour);
+            int minutenum = Convert.ToInt32(minute);
+
+            
+            /* catch any time errors, making sure the hours entered are from 1 -12
+             * and the minutes entered are from 0 - 60 */
+            if (hournum > 12)
+            {
+                Console.WriteLine("Invalid Time: Hour must be between 1 - 12. " +
+                    "Please try again");
+                Main();
+            }
+
+            if (minutenum > 60)
+            {
+                Console.WriteLine("Invalid Time: Minute must be between 0 - 60. " +
+                    "Please try again");
+                Main();
+            }
+
+            //the minute hand of the clock moves 6 degrees with every passing minute
+            int minutedegrees = minutenum * 6;
+            
+            /* the hour hand moves a total of 30 degrees with every passing hour and 
+             * 0.5 degrees with every passing minute */
+            double hourdegrees = (hournum * 30) + (minutenum * 0.5);
+
+            Console.WriteLine($"\nThe hour hand is at {hourdegrees} degrees.\n" +
+                $"The minute hand is at {minutedegrees} degrees.");
+
+            Another();
+        }
+
+        //a method giving the user an option to enter another time
+        static void Another()
+        {
+            Console.WriteLine("\nWould you like to enter another time? 'Yes' or 'No': ");
+            string answer = Console.ReadLine();
+
+            if (answer == "Yes" || answer == "yes")
+            {
+                Main();
+            }
+            else if (answer == "No" || answer == "no")
+            {
+                Console.WriteLine("\nThanks for using the program. Have a nice day!");
+            }
+
+            else
+            {
+                Console.WriteLine("\nInvalid response, please enter 'Yes' or 'No'");
+                Another();
+            }
+        }
+
+    }
+}
